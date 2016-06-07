@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<script name="jquery/jquery.js" library="primefaces"></script>
+	<title>Lista de cursos</title>
+</h:head>
+<h:form> 
+	<h1>Lista de cursos</h1> 
+<!-- 	<p:dataTable value="#{courseList.courseLazyModel}" id="course-table" var="c" paginator="true" rows="10" paginatorAlwaysVisible="false" -->
+<!--                  paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" -->
+<!--                  rowsPerPageTemplate="5,10,15" lazy="true"> -->
+	<p:dataTable value="#{courseList.courseList}" id="course-table" var="c" paginator="true" rows="10" paginatorAlwaysVisible="false"
+                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                 rowsPerPageTemplate="5,10,15" lazy="true">
+
+		<p:column headerText="Profesor" sortBy="#{c.teacher}" >
+			<h:outputText value="#{c.teacher}" />
+   		</p:column>
+		<p:column headerText="Título" sortBy="#{c.title}" >
+			<h:outputText value="#{c.title}" />
+   		</p:column>
+		<p:column headerText="Nivel" sortBy="#{c.level}" >
+			<h:outputText value="#{c.level}" />
+   		</p:column>
+		<p:column headerText="Duración" sortBy="#{c.time}" >
+			<h:outputText value="#{c.time}" />
+   		</p:column>
+		<p:column headerText="Documentación" >
+			<p:commandButton value="#{c.fileDownload.name}" icon="fa fa-file-text" rendered="#{not empty c.filepath}">
+				<p:fileDownload value="#{c.fileDownload}" />
+			</p:commandButton>
+   		</p:column>
+
+	</p:dataTable>
+	<br/>
+	<p:commandButton ajax="false" value="Nuevo Curso" action="#{courseRegister.getPage}">
+	</p:commandButton>
+</h:form>
+</html>
